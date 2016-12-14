@@ -5,7 +5,7 @@ A simple app to show and search menus and restaurants of [Unicafe](http://www.un
 ###Installation
 Install `unicafe-cli` globally.
 ```
-(sudo) npm install -g unicafe-cli
+    (sudo) npm install -g unicafe-cli
 ```
 
 ###Usage

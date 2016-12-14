@@ -1,7 +1,7 @@
 {
   "name": "unicafe-cli",
-  "version": "1.0.0",
-  "description": "A command-line tool to get data about University of Helsinki's restaurants, Unicafe",
+  "version": "0.0.1",
+  "description": "A command-line tool to get data of University of Helsinki's restaurants, Unicafe",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,7 +13,6 @@
     "cli-table": "^0.3.1",
     "lodash": "^4.17.2",
     "moment": "^2.17.1",
-    "node-localstorage": "^1.3.0",
     "optimist": "^0.6.1",
     "request-promise": "^4.1.1"
   }

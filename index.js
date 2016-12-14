@@ -1,7 +1,4 @@
 
-const Api = require('./api/api')
-const LocalStorage = require('node-localstorage').LocalStorage
-
 const helpModule = require('./modules/help')
 const restaurantModule = require('./modules/restaurants')
 const menuModule = require('./modules/menu')
