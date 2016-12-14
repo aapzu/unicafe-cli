@@ -1,10 +1,10 @@
-"use strict"
+"use strict";
 
-const helpModule = require("./modules/help")
-const restaurantModule = require("./modules/restaurants")
-const menuModule = require('./modules/menu')
+const helpModule = require("./modules/help");
+const restaurantModule = require("./modules/restaurants");
+const menuModule = require('./modules/menu');
 
-const strings = require('./strings/strings')
+const strings = require('./strings/strings');
 
 // const localStorage = new LocalStorage()
 const optimist = require('optimist')
