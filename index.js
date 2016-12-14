@@ -1,3 +1,4 @@
+"use strict"
 
 const helpModule = require("./modules/help")
 const restaurantModule = require("./modules/restaurants")

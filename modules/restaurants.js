@@ -1,3 +1,4 @@
+"use strict"
 
 const _ = require('lodash')
 const Api = require('../api/api')
