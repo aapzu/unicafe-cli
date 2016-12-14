@@ -6,7 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": {
+    "name": "Aapeli Haanpuu",
+    "email": "aapzu@iki.fi",
+    "url": "http://www.haanpuu.fi/"
+  },
   "license": "MIT",
   "dependencies": {
     "cli-color": "^1.1.0",
@@ -16,9 +20,7 @@
     "optimist": "^0.6.1",
     "request-promise": "^4.1.1"
   },
-  "bin": {
-    "unicafe-cli": "./index.js"
-  },
+  "bin": "./index.js",
   "keywords": [
     "unicafe",
     "menu",
