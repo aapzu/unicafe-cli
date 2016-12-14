@@ -1,6 +1,6 @@
 
-const helpModule = require('./modules/help')
-const restaurantModule = require('./modules/restaurants')
+const helpModule = require("./modules/help")
+const restaurantModule = require("./modules/restaurants")
 const menuModule = require('./modules/menu')
 
 const strings = require('./strings/strings')
