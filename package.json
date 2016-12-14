@@ -15,5 +15,14 @@
     "moment": "^2.17.1",
     "optimist": "^0.6.1",
     "request-promise": "^4.1.1"
-  }
+  },
+  "bin": {
+    "unicafe-cli": "./index.js"
+  },
+  "keywords": [
+    "unicafe",
+    "menu",
+    "university",
+    "helsinki"
+  ]
 }

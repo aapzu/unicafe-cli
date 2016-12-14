@@ -40,5 +40,6 @@ jspm_packages
 
 #JetBrains
 .idea
+.idea/*
 *.iml
 
