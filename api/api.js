@@ -1,6 +1,6 @@
 
 const request = require('request-promise')
-const urls = require('./api-uri-config')
+const config = require('./api-config')
 
 module.exports = class UnicafeApi {
     constructor() {
@@ -8,7 +8,7 @@ module.exports = class UnicafeApi {
     }
     restaurants() {
         return new Promise(function(resolve, reject) {
-            request.get(urls.restaurants)
+            request.get(config.uris.restaurants)
                 .then((res) => {
                     res = JSON.parse(res)
                     if (res.status === "OK") {
@@ -22,7 +22,7 @@ module.exports = class UnicafeApi {
     }
     menu(restaurantId) {
         return new Promise(function(resolve, reject) {
-            request.get(urls.menu(restaurantId))
+            request.get(config.uris.menu(restaurantId))
                 .then((res) => {
                     res = JSON.parse(res)
                     if (res.status === "OK") {

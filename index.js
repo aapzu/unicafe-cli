@@ -2,27 +2,38 @@
 const Api = require('./api/api')
 const LocalStorage = require('node-localstorage').LocalStorage
 
+const helpModule = require('./modules/help')
 const restaurantModule = require('./modules/restaurants')
 const menuModule = require('./modules/menu')
 
+const strings = require('./strings/strings')
+
 // const localStorage = new LocalStorage()
+const optimist = require('optimist')
+const argv = optimist.argv
 
-const args = process.argv.slice(2,Infinity)
+if (argv.h) { // help
+    helpModule.print(argv.h)
+} else if (argv.r) { // restaurants
+    restaurantModule.print(argv.r)
 
-
-
-
-if (!args.length) {
-    console.error("unicafe-cli needs arguments. run 'unicafe-cli help' to get help.")
-}
-
-const operation = args[0]
-
-if (operation == "help") {
-    console.log("You have called for help")
-} else if (operation == "restaurants") {
-    restaurantModule.print()
-} else if (operation == "menu") {
-    menuModule.print(args[1])
+} else if (argv.m) { // menu
+    let query = argv.m
+    if (query === true) {
+        ['w', 'i', 'a', 'n'].forEach((item) => {
+            if (argv[item] && argv[item] !== true) {
+                query = argv[item]
+            }
+        })
+    }
+    menuModule.print({
+        query:      query,
+        wholeWeek:  argv.w,
+        isId:       argv.i,
+        isArea:     argv.a,
+        isName:     argv.n
+    })
+} else {
+    console.log(strings.help.text)
 }
 
