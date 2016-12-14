@@ -1,6 +1,6 @@
 {
   "name": "unicafe-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A command-line tool to get data of University of Helsinki's restaurants, Unicafe",
   "main": "index.js",
   "scripts": {
