@@ -6,11 +6,22 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aapzu/unicafe-cli"
+  },
   "author": {
     "name": "Aapeli Haanpuu",
     "email": "aapzu@iki.fi",
     "url": "http://www.haanpuu.fi/"
   },
+  "bin": "./index.js",
+  "keywords": [
+    "unicafe",
+    "menu",
+    "university",
+    "helsinki"
+  ],
   "license": "MIT",
   "dependencies": {
     "cli-color": "^1.1.0",
@@ -20,12 +31,5 @@
     "optimist": "^0.6.1",
     "request": "^2.79.0",
     "request-promise": "^4.1.1"
-  },
-  "bin": "./index.js",
-  "keywords": [
-    "unicafe",
-    "menu",
-    "university",
-    "helsinki"
-  ]
+  }
 }
