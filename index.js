@@ -11,6 +11,10 @@ const strings = require('./strings/strings')
 const optimist = require('optimist')
 const argv = optimist.argv
 
+if (argv.ö) { // If you look at this, don't ask
+    console.log = require('./src/rainbow-console-log')
+}
+
 if (argv.h) { // help
     helpModule.print(argv.h)
 } else if (argv.r) { // restaurants
