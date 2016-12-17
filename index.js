@@ -1,42 +1,66 @@
 #!/usr/bin/env node
 
 "use strict";
+var pjson = require('./package.json')
 
-const helpModule = require("./modules/help")
-const restaurantModule = require("./modules/restaurants")
-const menuModule = require('./modules/menu')
+const RestaurantModule = require("./modules/restaurants")
+const MenuModule = require('./modules/menu')
 
-const strings = require('./strings/strings')
+const parser = require('nomnom')
 
-const optimist = require('optimist')
-const argv = optimist.argv
+var pjson = require('./package.json')
 
-if (argv.ö) { // If you look at this, don't ask
-    console.log = require('./src/rainbow-console-log')
-}
-
-if (argv.h) { // help
-    helpModule.print(argv.h)
-} else if (argv.r) { // restaurants
-    restaurantModule.print(argv.r)
-
-} else if (argv.m) { // menu
-    let query = argv.m
-    if (query === true) {
-        ['w', 'i', 'a', 'n'].forEach((item) => {
-            if (argv[item] && argv[item] !== true) {
-                query = argv[item]
-            }
-        })
-    }
-    menuModule.print({
-        query:      query,
-        wholeWeek:  argv.w,
-        isId:       argv.i,
-        isArea:     argv.a,
-        isName:     argv.n
+parser
+    .script(pjson.name)
+    .option('query', {
+        position: 0,
+        help: 'search query for restaurant'
     })
-} else {
-    console.log(strings.help.text)
-}
+    .option('help', {
+        flag: true,
+        abbr: 'h',
+        help: 'show help'
+    })
+    .option('version', {
+        flag: true,
+        abbr: 'v',
+        callback: () => {
+            return pjson.version
+        }
+    })
+    .option('week', {
+        flag: true,
+        abbr: 'w',
+        help: 'output menus for the whole ongoing week'
+    })
+    .option('english', {
+        flag: true,
+        abbr: 'e',
+        help: 'output the menus in english instead of finnish (BETA)'
+    })
+    .option('only-id', {
+        flag: true,
+        help: 'search only from restaurant ids'
+    })
+    .option('only-area', {
+        flag: true,
+        help: 'search only from restaurant area names'
+    })
+    .option('only-name', {
+        flag: true,
+        help: 'search only from restaurant names'
+    })
+    .option('restaurants', {
+        flag: true,
+        abbr: 'r',
+        help: 'print a list of all the available restaurants',
+        callback: function() {
+            new RestaurantModule().print()
+        }
+    })
 
+var opts = parser.parse()
+
+if (!opts.restaurants) {
+    new MenuModule(opts).print()
+}

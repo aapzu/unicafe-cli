@@ -4,83 +4,53 @@ const moment = require('moment')
 const _ = require('lodash')
 const clc = require('cli-color')
 
-const Api = require('../api/api')
+const Api = require('../data/api')
 let api = new Api()
 
-const restaurantModule = require('./restaurants')
+const restaurantData = require('../data/restaurant-data')
 
 const Table = require('cli-table')
 
-const strings = require('../strings/strings')
+const fiStrings = require('../strings/fi-strings')
+const enStrings = require('../strings/en-strings')
 
-const priceClasses = [
-    strings.menu.priceClasses["Maukkaasti"],
-    strings.menu.priceClasses["Edullisesti"],
-    strings.menu.priceClasses["Kevyesti"],
-    strings.menu.priceClasses["Bistro"]
-]
-
-const getPriceClass = (price) => {
-    for (let i = 0; i < priceClasses.length; i++) {
-        let c = priceClasses[i]
-        if (price.includes(c)) {
-            return c
-        }
-    }
-    return price
-}
-
-const printDaysMenu = (menuOfDay, menuDate) => {
-    const table = new Table({
-        head: [
-            strings.menu.headers.name,
-            strings.menu.headers.nutrition,
-            strings.menu.headers.priceClass,
-        ]
-    })
-    console.log(clc.red(menuDate.locale('fi').format(strings.menu.dateFormat)))
-    let foods = []
-    for (var dataCount = 0; dataCount < menuOfDay.data.length; dataCount++) {
-        let menuItem = menuOfDay.data[dataCount]
-        let name = menuItem.name
-        let meta = menuItem.meta[0].join(", ")
-        let priceClass = getPriceClass(menuItem.price.name)
-        foods.push({
-            name: name,
-            meta: meta,
-            priceClass: priceClass
-        })
-    }
-    foods = _.sortBy(foods, ['priceClass', 'name'])
-    foods.forEach((item) => {
-        table.push([item.name, item.meta, item.priceClass])
-    })
-    console.log(table.toString())
-}
-
-const parseAndPrintList = (list, wholeWeek) => {
-
-    for (var listCount = 0; listCount < list.length && listCount < 7; listCount++) {
-        var menuOfDay = list[listCount]
-
-        let menuDate = moment(menuOfDay.date_en, "ddd DD.MM").startOf('day')
-        let today = moment().startOf('day')
-        if ((today.isSame(menuDate) || wholeWeek) && menuOfDay.data.length) { // Is today
-            printDaysMenu(menuOfDay, menuDate)
-        }
-    }
-}
+const LocalStorage = require('node-localstorage').LocalStorage
+const localStorage = new LocalStorage('./storage')
 
 module.exports = class Menu {
-    static print(opt) {
-        if (opt.query === undefined || opt.query === "") {
-            console.log(strings.menu.errors.noQuery)
+    constructor(opts) {
+        this.inEnglish = opts.english
+        this.strings = this.inEnglish ? enStrings : fiStrings
+        this.priceClasses = [
+            this.strings.menu.priceClasses["Maukkaasti"],
+            this.strings.menu.priceClasses["Edullisesti"],
+            this.strings.menu.priceClasses["Kevyesti"],
+            this.strings.menu.priceClasses["Bistro"]
+        ]
+        this.searchParams = {
+            query: opts.query,
+            idOnly: opts["id-only"],
+            areaOnly: opts["area-only"],
+            nameOnly: opts["name-only"],
+            wholeWeek: opts['week']
+        }
+    }
+    print() {
+        var _this = this
+        let query = this.searchParams.query
+        if (!query) {
+            query = localStorage.getItem("lastQuery")
+        }
+        if (!query) {
+            console.log(this.strings.menu.errors.noQuery)
             return
         }
-        restaurantModule.searchRestaurants(opt)
+        localStorage.setItem("lastQuery", query)
+        this.searchParams.query = query
+        restaurantData.searchRestaurants(this.searchParams)
             .then((restaurants) => {
                 if (!restaurants.length) {
-                    console.log(strings.menu.errors.noResults)
+                    console.log(_this.strings.menu.errors.noResults)
                     return
                 }
                 restaurants = restaurants.slice(0, 3)
@@ -93,7 +63,7 @@ module.exports = class Menu {
                         for (var resCount = 0; resCount < results.length; resCount++) {
                             let list = results[resCount]
                             console.log("\n" + restaurants[resCount].name)
-                            parseAndPrintList(list, opt.wholeWeek)
+                            _this.parseAndPrintList(list, _this.searchParams.wholeWeek)
                         }
                     })
                     .catch((e) => {
@@ -104,4 +74,59 @@ module.exports = class Menu {
                 console.error(e.stack)
             })
     }
+    printDaysMenu(menuOfDay, menuDate) {
+        const table = new Table({
+            head: [
+                this.strings.menu.headers.name,
+                this.strings.menu.headers.nutrition,
+                this.strings.menu.headers.priceClass,
+            ]
+        })
+        console.log(clc.red(menuDate.locale(this.inEnglish ? 'en-gb' : 'fi').format(this.strings.menu.dateFormat)))
+        let foods = []
+        for (var dataCount = 0; dataCount < menuOfDay.data.length; dataCount++) {
+            let menuItem = menuOfDay.data[dataCount]
+            let name = this.inEnglish? menuItem.name_en : menuItem.name
+            let meta = menuItem.meta[0].join(", ")
+            let priceClass = this.getPriceClass(menuItem.price.name)
+            foods.push({
+                name: name,
+                meta: meta,
+                priceClass: priceClass
+            })
+        }
+        foods = _.sortBy(foods, ['priceClass', 'name'])
+        foods.forEach((item) => {
+            table.push([item.name, item.meta, item.priceClass])
+        })
+        if (!foods.length) {
+            console.log("-")
+        }
+        console.log(table.toString())
+    }
+
+    parseAndPrintList(list, wholeWeek) {
+        for (var listCount = 0; listCount < list.length && listCount < 7; listCount++) {
+            var menuOfDay = list[listCount]
+
+            let menuDate = moment(menuOfDay.date_en, "ddd DD.MM").startOf('day')
+            let today = moment().startOf('day')
+            let found = false
+            if ((today.isSame(menuDate) || wholeWeek) && menuOfDay.data.length) { // Is today
+                found = true
+                this.printDaysMenu(menuOfDay, menuDate)
+            }
+        }
+    }
+
+    getPriceClass(price) {
+        for (let i = 0; i < this.priceClasses.length; i++) {
+            let c = this.priceClasses[i]
+            if (price.includes(c)) {
+                return c
+            }
+        }
+        return price
+    }
+
 }
