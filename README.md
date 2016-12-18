@@ -10,35 +10,41 @@ Install `unicafe-cli` globally.
 
 ###Usage
 
-####Listing restaurants
-```
-    unicafe-cli -r [query]
-```
-If no query provided, all restaurants will be listed. Otherwise the query is used to search from restaurant names, areas and ids, and the results are listed.
-
 ####Showing menus
 ```
-    unicafe-cli -m <query>
+    unicafe-cli <query>
 ```
-Query needed. Shows today's menu for the searched restaurant or restaurants (max 3). 
+Query required. Shows today's menu for the searched restaurant or restaurants (max 3). 
 
 Use `-w` to show menus for the whole ongoing week.
 ```
-    unicafe-cli -m -w <query>
+    unicafe-cli <query> -w
 ```
 
-####Search params
+####Listing restaurants
+```
+    unicafe-cli -r
+```
+List all the restaurants of Unicafe.
+
+####Options
 These can be used every time a restaurant is searched.
  ```
-        -i      Only search from ids
-        -a      Only search from area names
-        -n      Only search from restaurant names
+          -h, --help          show help
+          -v, --version       
+          -w, --week          output menus for the whole ongoing week
+          -e, --english       output the menus in english instead of finnish
+          --only-id           search only from restaurant ids
+          --only-area         search only from restaurant area names
+          --only-name         search only from restaurant names
+          -r, --restaurants   print a list of all the available restaurants
+          --favorite          save the search to be used later, if no options are given
  ```
  
 ##Examples
 Input:
 ```
-    unicafe-cli -m kumpula
+    unicafe-cli kumpula
 ```
 Output:
 ```
@@ -79,7 +85,7 @@ ke 14.12.
 
 Input:
 ```
-    unicafe-cli -m -i -w 5
+    unicafe-cli 5 --only-id -w
 ``` 
 
 Output:

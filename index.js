@@ -38,7 +38,7 @@ parser
     .option('english', {
         flag: true,
         abbr: 'e',
-        help: 'output the menus in english instead of finnish (BETA)'
+        help: 'output the menus in english instead of finnish'
     })
     .option('only-id', {
         flag: true,
