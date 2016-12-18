@@ -10,10 +10,10 @@ const getRestaurants = () => {
         if (!restaurants) {
             api.restaurants()
                 .then((res) => {
-                    res.forEach((item) => {
+                    res.data.forEach((item) => {
                         item.areaName = config.areacodes[item.areacode]
                     })
-                    restaurants = res
+                    restaurants = res.data
                     resolve(restaurants)
                 })
         } else {
@@ -22,8 +22,8 @@ const getRestaurants = () => {
     })
 }
 
-const searchRestaurants = (opt) => {
-    let query = opt.query.toString()
+const searchRestaurants = ({query, isId, isName, isArea}) => {
+    query = query.toString()
     return new Promise((resolve, reject) => {
         getRestaurants()
             .then((restaurants) => {
@@ -37,11 +37,11 @@ const searchRestaurants = (opt) => {
                     return item.name.toLowerCase().includes(query.toLowerCase())
                 })
                 let response
-                if (opt.isId) {
+                if (isId) {
                     response = byId
-                } else if (opt.isArea) {
+                } else if (isArea) {
                     response = byArea
-                } else if (opt.isName) {
+                } else if (isName) {
                     response = byName
                 } else {
                     response = (byId.length && byId) || (byArea.length && byArea) || byName

@@ -2,8 +2,7 @@
 
 const Table = require('cli-table')
 
-const fiStrings = require('../strings/fi-strings')
-const enStrings = require('../strings/en-strings')
+const strings = require('../strings/strings')
 
 const rData = require('../data/restaurant-data')
 
@@ -14,9 +13,9 @@ module.exports = class Restaurants {
             .then((restaurants) => {
                 const table = new Table({
                     head: [
-                        fiStrings.restaurants.list.headers.name,
-                        fiStrings.restaurants.list.headers.areaName,
-                        fiStrings.restaurants.list.headers.id,
+                        strings.restaurants.list.headers.name,
+                        strings.restaurants.list.headers.areaName,
+                        strings.restaurants.list.headers.id,
                     ]
                 })
                 restaurants.forEach((item) => {

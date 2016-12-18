@@ -13,7 +13,7 @@ module.exports = class UnicafeApi {
                 .then((res) => {
                     res = JSON.parse(res)
                     if (res.status === "OK") {
-                        resolve(res.data)
+                        resolve(res)
                     } else {
                         throw new Error("Something went wrong:" + res)
                     }
@@ -27,7 +27,7 @@ module.exports = class UnicafeApi {
                 .then((res) => {
                     res = JSON.parse(res)
                     if (res.status === "OK") {
-                        resolve(res.data)
+                        resolve(res)
                     } else {
                         throw new Error("Something went wrong:" + res)
                     }
