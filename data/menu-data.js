@@ -11,6 +11,10 @@ const strings = require('../strings/strings')
 
 const getMenuBySearchQuery = (searchParams, limit) => {
     return new Promise((resolve, reject) => {
+        if (!searchParams.query) {
+            console.log(strings.menu.errors.noQuery)
+            return
+        }
         let menu = new Menu()
         restaurantData.searchRestaurants(searchParams)
             .then((restaurants) => {

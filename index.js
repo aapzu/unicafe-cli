@@ -6,6 +6,8 @@ var pjson = require('./package.json')
 const RestaurantModule = require("./modules/restaurants")
 const MenuModule = require('./modules/menu')
 
+const queryCache = require('./utils/query-cache')
+
 const parser = require('nomnom')
 
 var pjson = require('./package.json')
@@ -58,9 +60,16 @@ parser
             new RestaurantModule().print()
         }
     })
+    .option('favorite', {
+        flag: true,
+        help: 'save the search to be used later, if no options are given'
+    })
 
-var opts = parser.parse()
+let opts = parser.parse()
 
+opts = queryCache.check(opts)
+
+// Callback takes care of it when opts.restaurant == true
 if (!opts.restaurants) {
     new MenuModule(opts).print()
 }
