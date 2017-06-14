@@ -1,16 +1,16 @@
-#unicafe-cli
+# unicafe-cli
 
 A simple app to show and search menus and restaurants of [Unicafe](http://www.unicafe.fi).
 
-###Installation
+### Installation
 Install `unicafe-cli` globally.
 ```
     (sudo) npm install -g unicafe-cli
 ```
 
-###Usage
+### Usage
 
-####Showing menus
+#### Showing menus
 ```
     unicafe-cli <query>
 ```
@@ -21,13 +21,13 @@ Use `-w` to show menus for the whole ongoing week.
     unicafe-cli <query> -w
 ```
 
-####Listing restaurants
+#### Listing restaurants
 ```
     unicafe-cli -r
 ```
 List all the restaurants of Unicafe.
 
-####Options
+#### Options
 These can be used every time a restaurant is searched.
  ```
           -h, --help          show help
@@ -41,7 +41,7 @@ These can be used every time a restaurant is searched.
           --favorite          save the search to be used later, if no options are given
  ```
  
-##Examples
+## Examples
 Input:
 ```
     unicafe-cli kumpula
