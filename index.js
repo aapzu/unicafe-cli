@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 "use strict";
-var pjson = require('./package.json')
+const pjson = require('./package.json')
 
 const RestaurantModule = require("./modules/restaurants")
 const MenuModule = require('./modules/menu')
@@ -9,8 +9,6 @@ const MenuModule = require('./modules/menu')
 const queryCache = require('./utils/query-cache')
 
 const parser = require('nomnom')
-
-var pjson = require('./package.json')
 
 parser
     .script(pjson.name)

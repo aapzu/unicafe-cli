@@ -1,14 +1,13 @@
 
 const _ = require('lodash')
-const Api = require('./api')
-const api = new Api()
+const api = require('./api')
 const config = require('./api-config')
 
 let restaurants
 const getRestaurants = () => {
     return new Promise((resolve, reject) => {
         if (!restaurants) {
-            api.restaurants()
+            api.getRestaurants()
                 .then((res) => {
                     res.data.forEach((item) => {
                         item.areaName = config.areacodes[item.areacode]
@@ -28,7 +27,7 @@ const searchRestaurants = ({query, isId, isName, isArea}) => {
         getRestaurants()
             .then((restaurants) => {
                 let byId = _.filter(restaurants, (item) => {
-                    return item.id == query
+                    return item.id.toString() === query.toString()
                 })
                 let byArea = _.filter(restaurants, (item) => {
                     return item.areaName !== undefined && item.areaName.toLowerCase() === query.toLowerCase()

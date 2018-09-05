@@ -1,12 +1,11 @@
-"use strict"
-
 module.exports = {
     uris: {
         restaurants: "http://messi.hyyravintolat.fi/publicapi/restaurants",
         menu: function(id) {
-            if (id === undefined)
+            if (id === undefined) {
                 throw "Id is required!"
-            return "http://messi.hyyravintolat.fi/publicapi/restaurant/" + id
+            }
+            return `http://messi.hyyravintolat.fi/publicapi/restaurant/${id}`
         }
     },
     areacodes: {

@@ -8,13 +8,11 @@ module.exports = class SingleItem {
         this.nutrition = item.nutrition
         this.priceClass = strings.menu.priceClasses[item.price.name]
         this.allergenFlags = item.meta[0].join(', ')
-        this.allergenes = item.meta[1].join(', ')
     }
-    pickToArray(props) {
-        let _this = this
+    pickProps(props) {
         let responseArray = []
         _.each(props, (p) => {
-            responseArray.push(_this[p] !== undefined ? _this[p] : "-")
+            responseArray.push(this[p] !== undefined ? this[p] : "-")
         })
         return responseArray
     }

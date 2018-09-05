@@ -1,14 +1,5 @@
-"use strict"
-
-const moment = require('moment')
 const _ = require('lodash')
-
-const Api = require('../data/api')
-let api = new Api()
-
 const menuData = require('../data/menu-data')
-
-const strings = require('../strings/strings')
 
 module.exports = class Menu {
     constructor(opts) {
