@@ -5,33 +5,32 @@ const Item = require('./single-item-model')
 const StringTable = require('../utils/string-table')
 const strings = require('../strings/strings')
 
+const priceClassesInOrder = [
+    'Edullisesti',
+    'Maukkaasti',
+    'Bistro',
+    'Makeasti',
+    'Lisäke',
+]
+
 module.exports = class SingleMenu {
     constructor(menu, {inEnglish}) {
-        this.menu = menu.data
         this.date = moment(menu.date_en, "ddd DD.MM")
-        this.message = menu.message
-        this.items = []
-        this.menu.forEach((item) => {
-            this.items.push(new Item(item, {
+        this.items = menu.data
+            .sort((a, b) => {
+                const price1 = priceClassesInOrder.indexOf(a.price.name)
+                const price2 = priceClassesInOrder.indexOf(b.price.name)
+                if (typeof price1 === 'number' && typeof price2 === 'number' && a !== b) {
+                    return price1 - price2
+                }
+                if (inEnglish) {
+                    return a.name_en.localeCompare(b.name_en)
+                }
+                return a.name.localeCompare(b.name)
+            })
+            .map((item) => new Item(item, {
                 inEnglish: inEnglish
             }))
-        })
-        this.items = _.sortBy(this.items, [(item) => {
-            if (item.priceClass == "Edullisesti")
-                return 0
-            else if (item.priceClass == "Maukkaasti")
-                return 1
-            else if (item.priceClass == "Bistro")
-                return 2
-            else if (item.priceClass == "Makeasti")
-                return 3
-            else if (item.priceClass == "Lisäke")
-                return 4
-            else
-                return 5
-        }, (item) => {
-            return item.name
-        }])
     }
     toTable() {
         let response = this.date.format(strings.menu.dateFormat) + "\n"
