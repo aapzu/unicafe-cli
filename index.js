@@ -68,6 +68,6 @@ let opts = parser.parse()
 opts = queryCache.check(opts)
 
 // Callback takes care of it when opts.restaurant == true
-if (!opts.restaurants) {
+if (opts && !opts.restaurants) {
     new MenuModule(opts).print()
 }

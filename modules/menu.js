@@ -1,4 +1,3 @@
-const _ = require('lodash')
 const menuData = require('../data/menu-data')
 
 module.exports = class Menu {
@@ -21,5 +20,4 @@ module.exports = class Menu {
                 console.log(e.stack)
             })
     }
-
 }
