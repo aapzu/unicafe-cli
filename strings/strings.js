@@ -1,5 +1,3 @@
-"use strict"
-
 const clc = require('cli-color')
 
 module.exports = {

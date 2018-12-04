@@ -1,5 +1,3 @@
-"use strict"
-
 const Table = require('cli-table')
 
 const strings = require('../strings/strings')

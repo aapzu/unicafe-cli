@@ -1,5 +1,3 @@
-"use strict"
-
 module.exports = {
     uris: {
         restaurants: "http://messi.hyyravintolat.fi/publicapi/restaurants",

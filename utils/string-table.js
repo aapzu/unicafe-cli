@@ -1,5 +1,5 @@
 
-var Table = require('cli-table')
+const Table = require('cli-table')
 
 module.exports = class StringTable {
     constructor(tableStrings, opt) {

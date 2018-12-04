@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
-"use strict";
-var pjson = require('./package.json')
+const pjson = require('./package.json')
 
 const RestaurantModule = require("./modules/restaurants")
 const MenuModule = require('./modules/menu')
@@ -9,8 +8,6 @@ const MenuModule = require('./modules/menu')
 const queryCache = require('./utils/query-cache')
 
 const parser = require('nomnom')
-
-var pjson = require('./package.json')
 
 parser
     .script(pjson.name)
@@ -51,6 +48,15 @@ parser
     .option('only-name', {
         flag: true,
         help: 'search only from restaurant names'
+    })
+    .option('vegan-only', {
+        flag: true,
+        help: 'only show vegan options'
+    })
+    .option('vegetarian-only', {
+        flag: true,
+        abbr: 'v',
+        help: 'only show options with no meat or fish (BETA)'
     })
     .option('restaurants', {
         flag: true,

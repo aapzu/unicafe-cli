@@ -4,6 +4,7 @@ const moment = require('moment')
 const Item = require('./single-item-model')
 const StringTable = require('../utils/string-table')
 const strings = require('../strings/strings')
+const { isVegan, isVegetarian } = require('../utils/menu-item')
 
 const priceClassesInOrder = [
     'Edullisesti',
@@ -14,9 +15,19 @@ const priceClassesInOrder = [
 ]
 
 module.exports = class SingleMenu {
-    constructor(menu, {inEnglish}) {
+    constructor(menu, options) {
+        const { veganOnly, vegetarianOnly, inEnglish } = options
         this.date = moment(menu.date_en, "ddd DD.MM")
         this.items = menu.data
+            .filter((item) => {
+                if (veganOnly) {
+                    return isVegan(item)
+                } else if (vegetarianOnly) {
+                    return isVegetarian(item)
+                } else {
+                    return true
+                }
+            })
             .sort((a, b) => {
                 const price1 = priceClassesInOrder.indexOf(a.price.name)
                 const price2 = priceClassesInOrder.indexOf(b.price.name)

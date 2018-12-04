@@ -1,14 +1,4 @@
-"use strict"
-
-const moment = require('moment')
-const _ = require('lodash')
-
-const Api = require('../data/api')
-let api = new Api()
-
 const menuData = require('../data/menu-data')
-
-const strings = require('../strings/strings')
 
 module.exports = class Menu {
     constructor(opts) {
@@ -18,6 +8,8 @@ module.exports = class Menu {
             areaOnly: opts["area-only"],
             nameOnly: opts["name-only"],
             wholeWeek: opts['week'],
+            veganOnly: opts['vegan-only'],
+            vegetarianOnly: opts['vegetarian-only'],
             inEnglish: opts.english
         }
     }
