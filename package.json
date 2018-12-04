@@ -4,7 +4,6 @@
   "description": "A command-line tool to get data of University of Helsinki's restaurants, Unicafe",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
