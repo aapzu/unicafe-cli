@@ -1,2 +1,10 @@
 language: node_js
 node_js: 6.1.0
+deploy:
+  provider: npm
+  email: aapzu@iki.fi
+  api_key:
+    secure: Vz2Cmkr10LO2+y40M1odgERRUmMlHugOWDtpC36BhRGXUVGkF4Iz+pPsEvx+PeHd5Hi7pQU0uP+xbWc0P1ZrkEdpJCQSaMPwmh38yUDgnwNVOj1kBjIlv2V/OHnJlZgHaiHpnUAbKnfLf3NdHagqiS+2Skg03T93iY4YDFVs3pe4+HhBIzwjWqvVxVlkh61ydS8WlsPQv+lOV3gMhuskx6D/zkbbg3HCIBPtEl29LFPqlKoxY7rQ/jzCvgqh0EKQpf/tEa3MZ1HipdzbrqjHVsGu6zmKTZZoXy4pCtlTn5u4sJimeTIag/RsMgqe2V/hpw/JJsE4tfTTMqQoQdIUMEpEH5D9wOmz6cXQdp+ayFcN40PBGUePWn1d4dPAEuCkjOQcyYFSddWof77XwVcsLxHNIEVSLaxgUgnfD2pCDD4Ysqv9K+bcS+BX/8gLCPqZffcfCscIHdyj+hngs9ATyEm7+CV9eXFbnj4ieUSAvESmxmZ89vAvrdnBeQES0iNNVcKNXFOIkDqrthsrNz3yuFHTiXXTc0Cb1SoUyOLJEXHj/yhRwzqDdNLly9vQZ2J81ZKH3CgIl8B0oCg24QTxaxHXO3pFK51ve6D3x5y5ecTgL/6b/WEUeKvNGLPsMuBUD3nZjtu/SG+YLOipBAeEyG/oGFaZD+5wrTOCJP/ah2c=
+  on:
+    tags: true
+    repo: Aapzu/unicafe-cli
