@@ -1,3 +1,5 @@
+[![](https://api.travis-ci.org/Aapzu/unicafe-cli.svg?branch=master)](https://travis-ci.org/Aapzu/unicafe-cli)
+
 # unicafe-cli
 
 A simple app to show and search menus and restaurants of [Unicafe](http://www.unicafe.fi).
