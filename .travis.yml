@@ -8,3 +8,4 @@ deploy:
   on:
     tags: true
     repo: Aapzu/unicafe-cli
+  skip_cleanup: true
